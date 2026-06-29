@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - ToDo App</title>
+    <link rel="stylesheet" href="./../static/Main.css">
+</head>
+
+<body>
+
+    <div class="nav">
+        <ul class="nav-list">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/register">Register</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+        </ul>
+    </div>
+
+    <div class="dashboard-container">
+        <div class="dashboard-header">
+            <h1 class="dashboard-title">My Tasks</h1>
+            <p class="user-greeting">Welcome! Here are your tasks for today.</p>
+        </div>
+
+        <div class="dashboard-content">
+            <div class="task-input-section">
+                <h2 class="section-heading">Add New Task</h2>
+                <form class="task-form">
+                    <input type="text" class="task-input" placeholder="Enter a new task..." required>
+                    <textarea class="task-description" placeholder="Task description (optional)"></textarea>
+                    <button type="submit" class="btn btn-primary">Add Task</button>
+                </form>
+            </div>
+
+            <div class="task-list-section">
+                <h2 class="section-heading">Your Tasks</h2>
+                <div class="task-list">
+                    <div class="task-item">
+                        <input type="checkbox" class="task-checkbox">
+                        <div class="task-content">
+                            <h3 class="task-title">Complete Project Report</h3>
+                            <p class="task-description-text">Finish the quarterly project report and submit it</p>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn-edit">Edit</button>
+                            <button class="btn-delete">Delete</button>
+                        </div>
+                    </div>
+
+                    <div class="task-item">
+                        <input type="checkbox" class="task-checkbox">
+                        <div class="task-content">
+                            <h3 class="task-title">Review Code Changes</h3>
+                            <p class="task-description-text">Review and approve the pull requests from the team</p>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn-edit">Edit</button>
+                            <button class="btn-delete">Delete</button>
+                        </div>
+                    </div>
+
+                    <div class="task-item">
+                        <input type="checkbox" class="task-checkbox" checked>
+                        <div class="task-content">
+                            <h3 class="task-title">Team Meeting</h3>
+                            <p class="task-description-text">Attend the weekly team sync meeting</p>
+                        </div>
+                        <div class="task-actions">
+                            <button class="btn-edit">Edit</button>
+                            <button class="btn-delete">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+
+
+</html>
