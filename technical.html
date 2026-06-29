@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Technical Preparation</title>
+
+<style>
+
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial, Helvetica, sans-serif;
+    background:#f2f5f9;
+}
+
+.container{
+    width:90%;
+    max-width:900px;
+    margin:30px auto;
+}
+
+h1{
+    text-align:center;
+    color:#003366;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    margin:20px 0;
+    border-radius:10px;
+    box-shadow:0 0 10px rgba(0,0,0,.2);
+}
+
+h2{
+    color:#0b5394;
+}
+
+button{
+    background:#0b5394;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#063970;
+}
+
+#answer{
+    margin-top:15px;
+    color:green;
+    font-weight:bold;
+}
+
+a{
+text-decoration:none;
+color:white;
+}
+
+.home{
+text-align:center;
+margin-top:20px;
+}
+
+.home button{
+background:green;
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>Technical Interview Preparation</h1>
+
+<div class="card">
+<h2>1. What is Python?</h2>
+
+<p>
+Python is a high-level, interpreted programming language known for simplicity and readability.
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>2. What is Flask?</h2>
+
+<p>
+Flask is a lightweight Python web framework used for building web applications.
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>3. Difference between List and Tuple?</h2>
+
+<button onclick="showAnswer()">
+Show Answer
+</button>
+
+<p id="answer"></p>
+
+</div>
+
+<div class="card">
+
+<h2>4. Common Technical Interview Topics</h2>
+
+<ul>
+
+<li>Python Basics</li>
+
+<li>Object Oriented Programming</li>
+
+<li>HTML</li>
+
+<li>CSS</li>
+
+<li>JavaScript</li>
+
+<li>SQL</li>
+
+<li>DBMS</li>
+
+<li>Operating System</li>
+
+<li>Computer Networks</li>
+
+<li>Data Structures</li>
+
+<li>Algorithms</li>
+
+<li>Flask</li>
+
+<li>Git & GitHub</li>
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h2>5. Interview Tips</h2>
+
+<ol>
+
+<li>Revise basics.</li>
+
+<li>Practice coding daily.</li>
+
+<li>Improve communication skills.</li>
+
+<li>Prepare HR questions.</li>
+
+<li>Mock interviews.</li>
+
+</ol>
+
+</div>
+
+<div class="home">
+
+<button>
+<a href="/dashboard">Back to Dashboard</a>
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+function showAnswer(){
+
+document.getElementById("answer").innerHTML =
+"List is Mutable. Tuple is Immutable.";
+
+}
+
+</script>
+
+</body>
+</html>

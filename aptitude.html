@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Aptitude Test - Placement Prep</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f9;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container {
+        width: 70%;
+        margin: 50px auto;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px gray;
+    }
+
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+
+    .question {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .options label {
+        display: block;
+        padding: 8px;
+        background: #f1f1f1;
+        margin: 5px 0;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .options input {
+        margin-right: 10px;
+    }
+
+    .buttons {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    button {
+        padding: 10px 20px;
+        margin: 5px;
+        border: none;
+        background: #007bff;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #0056b3;
+    }
+
+    #result {
+        text-align: center;
+        font-size: 22px;
+        margin-top: 20px;
+        color: green;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Aptitude Test (30 MCQs)</h1>
+
+    <div id="quiz"></div>
+
+    <div class="buttons">
+        <button onclick="prevQuestion()">Previous</button>
+        <button onclick="nextQuestion()">Next</button>
+        <button onclick="submitTest()">Submit</button>
+    </div>
+
+    <div id="result"></div>
+</div>
+
+<script>
+const questions = [
+    {q:"What is 10 + 20?", options:["20","30","40","50"], answer:1},
+    {q:"What is 15 × 2?", options:["20","25","30","35"], answer:2},
+    {q:"What is 100 ÷ 4?", options:["20","25","30","40"], answer:1},
+    {q:"Square of 5?", options:["10","15","20","25"], answer:3},
+    {q:"Next prime after 7?", options:["9","10","11","13"], answer:2},
+    {q:"2^3 = ?", options:["6","8","9","12"], answer:1},
+    {q:"Average of 2 and 6?", options:["3","4","5","6"], answer:1},
+    {q:"What is 50% of 200?", options:["50","100","150","200"], answer:1},
+    {q:"LCM of 4 and 6?", options:["10","12","14","16"], answer:1},
+    {q:"HCF of 8 and 12?", options:["2","4","6","8"], answer:1},
+
+    {q:"What is 9 × 9?", options:["72","81","90","99"], answer:1},
+    {q:"What is 45 + 55?", options:["90","95","100","105"], answer:2},
+    {q:"What is 144 ÷ 12?", options:["10","11","12","13"], answer:2},
+    {q:"Cube of 2?", options:["4","6","8","10"], answer:2},
+    {q:"Square root of 81?", options:["7","8","9","10"], answer:2},
+
+    {q:"10% of 500?", options:["10","50","100","150"], answer:1},
+    {q:"What is 7 × 8?", options:["54","56","58","60"], answer:1},
+    {q:"What is 60 - 25?", options:["25","30","35","40"], answer:2},
+    {q:"What is 11 × 11?", options:["111","121","131","141"], answer:1},
+    {q:"What is 1000 ÷ 10?", options:["10","50","100","1000"], answer:2},
+
+    {q:"Simplify: 5 + 3 × 2", options:["16","11","13","10"], answer:1},
+    {q:"What is 18 ÷ 3?", options:["4","5","6","7"], answer:2},
+    {q:"What is 14 + 28?", options:["40","41","42","43"], answer:2},
+    {q:"What is 25 × 4?", options:["100","90","110","120"], answer:0},
+    {q:"What is 90 ÷ 9?", options:["8","9","10","11"], answer:1},
+
+    {q:"What is 13 + 17?", options:["28","29","30","31"], answer:2},
+    {q:"What is 6 × 6?", options:["30","32","34","36"], answer:3},
+    {q:"What is 81 ÷ 9?", options:["7","8","9","10"], answer:2},
+    {q:"What is 20% of 300?", options:["50","60","70","80"], answer:1},
+    {q:"What is 99 + 1?", options:["100","101","102","103"], answer:0}
+];
+
+let current = 0;
+let score = 0;
+let userAnswers = new Array(questions.length).fill(null);
+
+function loadQuestion() {
+    let q = questions[current];
+    let html = `<div class='question'><b>Q${current+1}:</b> ${q.q}</div>`;
+    html += `<div class='options'>`;
+
+    q.options.forEach((opt, i) => {
+        let checked = userAnswers[current] === i ? "checked" : "";
+        html += `
+        <label>
+            <input type="radio" name="option" value="${i}" ${checked}
+            onclick="selectAnswer(${i})"> ${opt}
+        </label>`;
+    });
+
+    html += `</div>`;
+    document.getElementById("quiz").innerHTML = html;
+}
+
+function selectAnswer(i) {
+    userAnswers[current] = i;
+}
+
+function nextQuestion() {
+    if (current < questions.length - 1) {
+        current++;
+        loadQuestion();
+    }
+}
+
+function prevQuestion() {
+    if (current > 0) {
+        current--;
+        loadQuestion();
+    }
+}
+
+function submitTest() {
+    score = 0;
+    for (let i = 0; i < questions.length; i++) {
+        if (userAnswers[i] === questions[i].answer) {
+            score++;
+        }
+    }
+
+    document.getElementById("quiz").innerHTML = "";
+    document.getElementById("result").innerHTML =
+        `🎯 You scored <b>${score} / ${questions.length}</b>`;
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
