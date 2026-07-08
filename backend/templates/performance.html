@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<title>Performance Tracking</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    background:#eef2f7;
+    margin:0;
+}
+
+nav{
+    background:#003366;
+    padding:15px;
+}
+
+nav a{
+    color:white;
+    text-decoration:none;
+    margin-right:20px;
+    font-size:18px;
+}
+
+.container{
+    width:85%;
+    margin:auto;
+    margin-top:30px;
+}
+
+h1{
+    text-align:center;
+    color:#003366;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    margin-top:20px;
+}
+
+th{
+    background:#003366;
+    color:white;
+    padding:15px;
+}
+
+td{
+    padding:15px;
+    text-align:center;
+    border-bottom:1px solid #ddd;
+}
+
+tr:hover{
+    background:#f5f5f5;
+}
+
+.progress{
+    width:100%;
+    background:#ddd;
+    height:30px;
+    border-radius:20px;
+    margin-top:30px;
+}
+
+.bar{
+    height:30px;
+    background:green;
+    color:white;
+    text-align:center;
+    line-height:30px;
+    border-radius:20px;
+}
+
+.good{
+    color:green;
+    font-weight:bold;
+}
+
+.average{
+    color:orange;
+    font-weight:bold;
+}
+
+.low{
+    color:red;
+    font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<a href="/">Home</a>
+<a href="/dashboard">Dashboard</a>
+<a href="/performance">Performance</a>
+
+</nav>
+
+<div class="container">
+
+<h1>Student Performance Tracking</h1>
+
+<table>
+
+<tr>
+
+<th>Subject</th>
+<th>Total Questions</th>
+<th>Correct</th>
+<th>Wrong</th>
+<th>Accuracy</th>
+
+</tr>
+
+{% for item in performance %}
+
+<tr>
+
+<td>{{ item.subject }}</td>
+<td>{{ item.total }}</td>
+<td>{{ item.correct }}</td>
+<td>{{ item.wrong }}</td>
+
+<td>
+
+{% if item.accuracy >= 80 %}
+
+<span class="good">{{ item.accuracy }}%</span>
+
+{% elif item.accuracy >= 60 %}
+
+<span class="average">{{ item.accuracy }}%</span>
+
+{% else %}
+
+<span class="low">{{ item.accuracy }}%</span>
+
+{% endif %}
+
+</td>
+
+</tr>
+
+{% endfor %}
+
+</table>
+
+<h2>Overall Performance</h2>
+
+<div class="progress">
+
+<div class="bar" style="width:'{{ overall }}';">
+
+{{ overall }}
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

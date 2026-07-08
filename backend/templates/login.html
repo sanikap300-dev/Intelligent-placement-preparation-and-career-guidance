@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Student Login | Intelligent Placement Preparation and Career Guidance</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#0f4c81,#2196f3);
+    min-height:100vh;
+}
+
+/* Navigation */
+
+nav{
+    width:100%;
+    background:#083b66;
+    padding:15px 0;
+}
+
+nav ul{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    list-style:none;
+}
+
+nav ul li{
+    margin:8px 15px;
+}
+
+nav ul li a{
+    color:white;
+    text-decoration:none;
+    font-size:15px;
+    font-weight:bold;
+}
+
+nav ul li a:hover{
+    color:yellow;
+}
+
+/* Login Box */
+
+.container{
+    width:380px;
+    background:white;
+    margin:60px auto;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 0 20px rgba(0,0,0,.3);
+}
+
+h2{
+    text-align:center;
+    color:#0f4c81;
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin-top:5px;
+    border:1px solid #ccc;
+    border-radius:5px;
+    font-size:15px;
+}
+
+input:focus{
+    outline:none;
+    border:1px solid #2196f3;
+}
+
+.password-box{
+    position:relative;
+}
+
+.password-box span{
+    position:absolute;
+    right:12px;
+    top:18px;
+    cursor:pointer;
+    color:#0f4c81;
+    font-size:14px;
+}
+
+button{
+    width:100%;
+    margin-top:25px;
+    padding:12px;
+    border:none;
+    border-radius:5px;
+    background:#0f4c81;
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#1565c0;
+}
+
+.loading{
+    display:none;
+    text-align:center;
+    margin-top:15px;
+    color:#0f4c81;
+}
+
+.error{
+    color:red;
+    text-align:center;
+    margin-top:15px;
+}
+
+.success{
+    color:green;
+    text-align:center;
+    margin-top:15px;
+}
+
+p{
+    text-align:center;
+    margin-top:20px;
+}
+
+p a{
+    color:#0f4c81;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<nav>
+
+<ul>
+
+<li><a href="/">Home</a></li>
+<li><a href="/login">Login</a></li>
+<li><a href="/register">Register</a></li>
+<li><a href="/dashboard">Dashboard</a></li>
+<li><a href="/aptitude">Aptitude</a></li>
+<li><a href="/technical">Technical</a></li>
+<li><a href="/interview">Interview</a></li>
+<li><a href="/resume">Resume</a></li>
+<li><a href="/performance">Performance</a></li>
+<li><a href="/career">Career</a></li>
+<li><a href="/companies">Companies</a></li>
+<li><a href="/contact">Contact</a></li>
+<li><a href="/about">About</a></li>
+
+</ul>
+
+</nav>
+
+<div class="container">
+
+<h2>Student Login</h2>
+
+<!-- Flash Messages -->
+
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+{% for message in messages %}
+<div class="success">{{ message }}</div>
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+<form id="loginForm" action="/login" method="POST">
+
+<label>Email</label>
+
+<input
+type="email"
+id="email"
+name="email"
+placeholder="Enter Email"
+required>
+
+<label>Password</label>
+
+<div class="password-box">
+
+<input
+type="password"
+id="password"
+name="password"
+placeholder="Enter Password"
+required>
+
+<span onclick="togglePassword()">Show</span>
+
+</div>
+
+<button id="loginBtn" type="submit">
+Login
+</button>
+
+</form>
+
+<div class="loading" id="loading">
+Please wait...
+</div>
+
+<div id="clientError" class="error"></div>
+
+<p>
+Don't have an account?
+<a href="/register">Register</a>
+</p>
+
+</div>
+
+<script>
+
+function togglePassword(){
+
+let pass=document.getElementById("password");
+let txt=document.querySelector(".password-box span");
+
+if(pass.type==="password"){
+pass.type="text";
+txt.innerHTML="Hide";
+}
+else{
+pass.type="password";
+txt.innerHTML="Show";
+}
+
+}
+
+document.getElementById("loginForm").addEventListener("submit",function(e){
+
+let email=document.getElementById("email").value.trim();
+let password=document.getElementById("password").value.trim();
+
+let error=document.getElementById("clientError");
+
+error.innerHTML="";
+
+if(email==""){
+e.preventDefault();
+error.innerHTML="Please enter your email.";
+return;
+}
+
+if(password==""){
+e.preventDefault();
+error.innerHTML="Please enter your password.";
+return;
+}
+
+document.getElementById("loading").style.display="block";
+document.getElementById("loginBtn").disabled=true;
+
+});
+
+</script>
+
+</body>
+</html>

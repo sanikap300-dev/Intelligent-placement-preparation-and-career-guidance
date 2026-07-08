@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Intelligent Placement Preparation and Career Guidance | Aptitude Test</title>
+
+<style>
+body{
+    font-family:Arial;
+    margin:0;
+    background:#eef2f7;
+}
+
+/* HEADER */
+header{
+    background:linear-gradient(90deg,#003366,#007bff);
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+/* CONTAINER */
+.container{
+    width:75%;
+    margin:20px auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 0 10px gray;
+}
+
+/* TIMER */
+#timer{
+    text-align:right;
+    font-size:18px;
+    color:red;
+    font-weight:bold;
+}
+
+/* QUESTION */
+.question{
+    font-size:20px;
+    margin:15px 0;
+}
+
+/* OPTIONS */
+.options label{
+    display:block;
+    background:#f1f1f1;
+    margin:5px 0;
+    padding:10px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+/* BUTTONS */
+button{
+    padding:10px 18px;
+    border:none;
+    margin:5px;
+    background:#007bff;
+    color:white;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#003366;
+}
+
+#result{
+    text-align:center;
+    font-size:22px;
+    color:green;
+    margin-top:15px;
+}
+
+/* PROGRESS */
+#progress{
+    height:10px;
+    background:#ddd;
+    border-radius:5px;
+    margin-bottom:10px;
+}
+
+#bar{
+    height:10px;
+    width:0%;
+    background:#007bff;
+    border-radius:5px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Intelligent Placement Preparation and Career Guidance</h1>
+<p>Aptitude Test (30 Questions - Exam Mode)</p>
+</header>
+
+<div class="container">
+
+<div id="timer">Time Left: 30:00</div>
+
+<div id="progress"><div id="bar"></div></div>
+
+<h2 id="qno"></h2>
+<div id="quiz"></div>
+
+<div style="text-align:center;">
+    <button onclick="prev()">Previous</button>
+    <button onclick="next()">Next</button>
+    <button onclick="submitTest()">Submit</button>
+</div>
+
+<div id="result"></div>
+
+</div>
+
+<script>
+
+/* ---------------- 30 QUESTIONS ---------------- */
+const questions = [
+{q:"Profit % if CP=800 SP=1000?",options:["20","25","30","40"],answer:1},
+{q:"Speed 120 km in 2 hrs?",options:["50","60","70","80"],answer:1},
+{q:"25% of 640?",options:["140","150","160","170"],answer:2},
+{q:"Average of 10,20,30,40,50?",options:["25","30","35","40"],answer:1},
+{q:"Next: 2,4,8,16,?",options:["18","24","32","36"],answer:2},
+{q:"SI of 5000 at 10% for 2 yrs?",options:["500","750","1000","1200"],answer:2},
+{q:"LCM of 12 and 18?",options:["24","30","36","48"],answer:2},
+{q:"Square root of 225?",options:["12","13","14","15"],answer:3},
+
+{q:"Odd one out Apple Banana Mango Car",options:["Apple","Banana","Mango","Car"],answer:3},
+{q:"CAT→DBU DOG→?",options:["EPH","EPG","FPH","EOH"],answer:0},
+{q:"3,6,12,24,?",options:["36","42","48","54"],answer:2},
+{q:"A,C,E,G,?",options:["H","I","J","K"],answer:1},
+{q:"Pen:Write Knife:?",options:["Cut","Eat","Cook","Draw"],answer:0},
+{q:"Smallest prime?",options:["0","1","2","3"],answer:2},
+{q:"Angle 3:00?",options:["60","90","120","180"],answer:1},
+
+{q:"Synonym Rapid",options:["Slow","Fast","Weak","Small"],answer:1},
+{q:"Antonym Success",options:["Victory","Failure","Growth","Profit"],answer:1},
+{q:"She ____ to college",options:["go","goes","gone","going"],answer:1},
+{q:"Correct spelling",options:["Recieve","Receive","Receeve","Receve"],answer:1},
+{q:"Opposite Ancient",options:["Old","Historic","Modern","Traditional"],answer:2},
+
+{q:"Web structure language",options:["Python","HTML","Java","C"],answer:1},
+{q:"Python comment",options:["//","#","/*","<!--"],answer:1},
+{q:"FIFO structure",options:["Stack","Queue","Tree","Graph"],answer:1},
+{q:"Java developer",options:["Microsoft","Sun Microsystems","Google","IBM"],answer:1},
+{q:"Python function keyword",options:["function","def","fun","define"],answer:1},
+
+{q:"C pointer symbol",options:["&","*","#","@"],answer:1},
+{q:"C++ reuse feature",options:["Loop","Inheritance","Recursion","Pointer"],answer:1},
+{q:"Java inheritance",options:["implements","extends","inherit","super"],answer:1},
+{q:"HTML link tag",options:["<a>","<link>","<href>","<url>"],answer:0},
+{q:"SQL query keyword",options:["GET","SELECT","SHOW","FETCH"],answer:1}
+];
+
+let current=0;
+let answers=new Array(questions.length).fill(null);
+let time=30*60;
+
+/* ---------------- TIMER ---------------- */
+let timer=setInterval(()=>{
+    let min=Math.floor(time/60);
+    let sec=time%60;
+    document.getElementById("timer").innerText=
+    `Time Left: ${min}:${sec<10?"0":""}${sec}`;
+
+    if(time<=0){
+        clearInterval(timer);
+        submitTest();
+    }
+    time--;
+},1000);
+
+/* ---------------- LOAD QUESTION ---------------- */
+function load(){
+    let q=questions[current];
+
+    document.getElementById("qno").innerText=
+    `Question ${current+1} of ${questions.length}`;
+
+    let html=`<div class="question">${q.q}</div><div class="options">`;
+
+    q.options.forEach((opt,i)=>{
+        let checked=answers[current]===i?"checked":"";
+        html+=`
+        <label>
+        <input type="radio" name="opt" ${checked}
+        onclick="answers[${current}]=${i}">
+        ${opt}
+        </label>`;
+    });
+
+    html+="</div>";
+
+    document.getElementById("quiz").innerHTML=html;
+
+    /* progress bar */
+    document.getElementById("bar").style.width=
+    ((current+1)/questions.length)*100+"%";
+}
+
+function next(){
+    if(current<questions.length-1){
+        current++;
+        load();
+    }
+}
+
+function prev(){
+    if(current>0){
+        current--;
+        load();
+    }
+}
+
+/* ---------------- RESULT ---------------- */
+function submitTest(){
+    clearInterval(timer);
+
+    let score=0;
+
+    for(let i=0;i<questions.length;i++){
+        if(answers[i]===questions[i].answer){
+            score++;
+        }
+    }
+
+    let msg="";
+    if(score>=25) msg="Excellent 🎉 Placement Ready";
+    else if(score>=18) msg="Good 👍 Keep Practicing";
+    else msg="Need Improvement 📚";
+
+    document.getElementById("quiz").innerHTML="";
+    document.getElementById("qno").innerHTML="";
+    document.getElementById("timer").innerHTML="";
+
+    document.getElementById("result").innerHTML=`
+    <h2>Test Completed</h2>
+    <h1>${score} / ${questions.length}</h1>
+    <p>${msg}</p>
+    <button onclick="location.reload()">Restart Test</button>
+    `;
+}
+
+load();
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume Builder</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f6f9;
+            padding: 20px;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            width: 600px;
+            margin: auto;
+            border-radius: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0 15px 0;
+        }
+
+        .result {
+            width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+<form action="/resume" method="POST">
+
+    <label>Name</label>
+    <input type="text" name="name" required>
+
+    <label>Email</label>
+    <input type="email" name="email" required>
+
+    <label>Phone</label>
+    <input type="text" name="phone" required>
+
+    <label>Address</label>
+    <textarea name="address" required></textarea>
+
+    <!-- CAREER -->
+    <label>Career Objective</label>
+    <select name="career" id="careerSelect" onchange="toggleOther('career')">
+        <option value="">Select</option>
+        <option value="Software Developer">Software Developer</option>
+        <option value="Data Analyst">Data Analyst</option>
+        <option value="Web Developer">Web Developer</option>
+        <option value="AI Engineer">AI Engineer</option>
+        <option value="other">Other</option>
+    </select>
+    <input type="text" name="career_other" id="career_other" style="display:none;" placeholder="Enter career">
+
+    <!-- EDUCATION -->
+    <label>Education</label>
+    <select name="education" id="educationSelect" onchange="toggleOther('education')">
+        <option value="">Select</option>
+        <option value="SSC">SSC</option>
+        <option value="HSC">HSC</option>
+        <option value="Diploma">Diploma</option>
+        <option value="B.Tech">B.Tech</option>
+        <option value="other">Other</option>
+    </select>
+    <input type="text" name="education_other" id="education_other" style="display:none;" placeholder="Enter education">
+
+    <!-- SKILLS -->
+    <label>Skills</label><br>
+    <input type="checkbox" name="skills" value="Python"> Python
+    <input type="checkbox" name="skills" value="Java"> Java
+    <input type="checkbox" name="skills" value="HTML"> HTML
+    <input type="checkbox" name="skills" value="CSS"> CSS
+    <input type="checkbox" name="skills" value="JavaScript"> JavaScript
+
+    <br><br>
+
+    <!-- PROJECT -->
+    <label>Project</label>
+    <select name="project" id="projectSelect" onchange="toggleOther('project')">
+        <option value="">Select</option>
+        <option value="Resume Builder App">Resume Builder App</option>
+        <option value="Portfolio Website">Portfolio Website</option>
+        <option value="Chat App">Chat App</option>
+        <option value="other">Other</option>
+    </select>
+    <input type="text" name="project_other" id="project_other" style="display:none;" placeholder="Enter project">
+
+    <!-- EXPERIENCE -->
+    <label>Experience</label>
+    <select name="experience" id="experienceSelect" onchange="toggleOther('experience')">
+        <option value="">Select</option>
+        <option value="Fresher">Fresher</option>
+        <option value="0-1 Year">0-1 Year</option>
+        <option value="1-3 Years">1-3 Years</option>
+        <option value="other">Other</option>
+    </select>
+    <input type="text" name="experience_other" id="experience_other" style="display:none;" placeholder="Enter experience">
+
+    <!-- LANGUAGES -->
+    <label>Languages</label><br>
+    <input type="checkbox" name="languages" value="English"> English
+    <input type="checkbox" name="languages" value="Hindi"> Hindi
+    <input type="checkbox" name="languages" value="Marathi"> Marathi
+
+    <br><br>
+
+    <!-- HOBBIES -->
+    <label>Hobbies</label><br>
+    <input type="checkbox" name="hobbies" value="Reading"> Reading
+    <input type="checkbox" name="hobbies" value="Coding"> Coding
+    <input type="checkbox" name="hobbies" value="Traveling"> Traveling
+
+    <br><br>
+
+    <button type="submit">Generate Resume</button>
+
+</form>
+
+<!-- ✅ RESULT SECTION (FIXED) -->
+{% if student %}
+
+<div class="result">
+
+    <h2>Resume Generated</h2>
+
+    <p><b>Name:</b> {{ student.name }}</p>
+    <p><b>Email:</b> {{ student.email }}</p>
+    <p><b>Phone:</b> {{ student.phone }}</p>
+    <p><b>Address:</b> {{ student.address }}</p>
+    <p><b>Career:</b> {{ student.career }}</p>
+    <p><b>Education:</b> {{ student.education }}</p>
+    <p><b>Skills:</b> {{ student.skills }}</p>
+    <p><b>Project:</b> {{ student.project }}</p>
+    <p><b>Experience:</b> {{ student.experience }}</p>
+    <p><b>Languages:</b> {{ student.languages }}</p>
+    <p><b>Hobbies:</b> {{ student.hobbies }}</p>
+
+    <hr>
+
+    <h3>Download Resume PDF</h3>
+
+    <!-- ✅ PDF LINK -->
+    <a href="{{ url_for('static', filename='resume.pdf') }}" target="_blank">
+        📄 View Resume PDF
+    </a>
+
+    <br><br>
+
+    <a href="{{ url_for('static', filename='resume.pdf') }}" download>
+        ⬇ Download Resume PDF
+    </a>
+
+</div>
+
+{% endif %}
+
+<script>
+function toggleOther(field) {
+    let select = document.getElementById(field + "Select");
+    let input = document.getElementById(field + "_other");
+
+    if (select.value === "other") {
+        input.style.display = "block";
+    } else {
+        input.style.display = "none";
+        input.value = "";
+    }
+}
+</script>
+
+</body>
+</html>
