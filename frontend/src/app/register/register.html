@@ -1,0 +1,141 @@
+<div class="container">
+
+<h2>Register</h2>
+
+
+<input 
+type="text"
+placeholder="Full Name"
+[(ngModel)]="fullname"
+name="fullname">
+
+
+<br><br>
+
+
+<input 
+type="email"
+placeholder="Email"
+[(ngModel)]="email"
+name="email">
+
+
+<br><br>
+
+
+<input 
+type="text"
+placeholder="Mobile Number"
+[(ngModel)]="mobile"
+name="mobile">
+
+
+<br><br>
+
+
+<input 
+type="text"
+placeholder="College Name"
+[(ngModel)]="college"
+name="college">
+
+
+<br><br>
+
+
+<label>Branch</label>
+
+<br>
+
+
+<select 
+[(ngModel)]="branch"
+name="branch">
+
+
+<option value="">
+Select Branch
+</option>
+
+
+<option value="Computer Science">
+Computer Science
+</option>
+
+
+<option value="Information Technology">
+Information Technology
+</option>
+
+
+<option value="Electronics and Telecommunication">
+Electronics and Telecommunication
+</option>
+
+
+<option value="Mechanical Engineering">
+Mechanical Engineering
+</option>
+
+
+<option value="Civil Engineering">
+Civil Engineering
+</option>
+
+
+<option value="Electrical Engineering">
+Electrical Engineering
+</option>
+
+
+<option value="Artificial Intelligence">
+Artificial Intelligence
+</option>
+
+
+<option value="Data Science">
+Data Science
+</option>
+
+
+<option value="Cyber Security">
+Cyber Security
+</option>
+
+
+</select>
+
+
+<br><br>
+
+
+
+<input 
+type="password"
+placeholder="Password"
+[(ngModel)]="password"
+name="password">
+
+
+<br><br>
+
+
+<input 
+type="password"
+placeholder="Confirm Password"
+[(ngModel)]="confirmPassword"
+name="confirmPassword">
+
+
+<br><br>
+
+
+
+<button (click)="register()">
+
+Registern
+
+</button>
+
+
+</div>

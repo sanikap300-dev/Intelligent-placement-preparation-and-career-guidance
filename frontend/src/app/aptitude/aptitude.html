@@ -1,0 +1,164 @@
+<header>
+
+    <h1>Intelligent Placement Preparation and Career Guidance</h1>
+
+    <p>Aptitude Test</p>
+
+</header>
+
+
+<div class="container">
+
+
+    @if(!submitted)
+    {
+
+    <div>
+
+        <div id="timer">
+
+            Time Left:
+            {{minutes}}:
+            {{seconds<10 ? '0'+seconds : seconds}}
+
+        </div>
+
+
+        <div id="progress">
+
+            <div id="bar"
+            [style.width.%]="((current+1)/questions.length)*100">
+
+            </div>
+
+        </div>
+
+
+
+        <h2>
+
+            Question {{current+1}} of {{questions.length}}
+
+        </h2>
+
+
+
+        <div class="question">
+
+            {{questions[current].q}}
+
+        </div>
+
+
+
+        <div class="options">
+
+            @for(option of questions[current].options;track $index)
+            {
+
+            <label>
+
+                <input
+
+                type="radio"
+
+                [name]="'question'+current"
+
+                [value]="$index"
+
+                [(ngModel)]="answers[current]">
+
+                {{option}}
+
+            </label>
+
+            }
+
+        </div>
+
+
+
+        <div class="buttons">
+
+            <button
+
+            (click)="prev()"
+
+            [disabled]="current==0">
+
+                Previous
+
+            </button>
+
+
+
+            <button
+
+            (click)="next()"
+
+            [disabled]="current==questions.length-1">
+
+                Next
+
+            </button>
+
+
+
+            <button
+
+            (click)="submitTest()">
+
+                Submit
+
+            </button>
+
+        </div>
+
+    </div>
+
+    }
+
+
+    @else
+    {
+
+    <div id="result">
+
+        <h2>
+
+            Test Completed
+
+        </h2>
+
+
+
+        <h1>
+
+            {{score}} / {{questions.length}}
+
+        </h1>
+
+
+
+        <h3>
+
+            {{message}}
+
+        </h3>
+
+
+
+       <button
+
+    (click)="restartTest()">
+
+    Restart Test
+
+    </button>
+
+    </div>
+
+    }
+
+
+</div>

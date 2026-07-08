@@ -1,0 +1,33 @@
+<div class="container">
+
+    <h1>
+        Welcome {{user?.fullname}}
+    </h1>
+
+    <h2>
+        Placement Preparation Dashboard
+    </h2>
+
+    <p>
+        <b>Email :</b>
+        {{user?.email}}
+    </p>
+
+    <p>
+        <b>Branch :</b>
+        {{user?.branch}}
+    </p>
+
+    <br>
+
+    <button (click)="aptitude()">
+        Aptitude Test
+    </button>
+
+    <br><br>
+
+    <button (click)="logout()">
+        Logout
+    </button>
+
+</div>
